@@ -13,9 +13,3 @@ test:
     - sleep 5
   override:
     - docker run puckel/docker-airflow version |grep '1.8.1'
-
-deployment:
-  production:
-    branch: master
-    commands:
-      - scp ~/WorldCover/data-pipeline/README.md circleci@dashboard.worldcovr.com:/opt/airflow/
