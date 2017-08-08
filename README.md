@@ -62,8 +62,22 @@ For encrypted connection passwords (in Local or Celery Executor), you must have 
 
 Check [Airflow Documentation](https://pythonhosted.org/airflow/)
 
+## Google Auth
+This docker image is set up to optionally use a Google Oauth Backend. The recommended way to do so is to pass environment variables as part of your docker-compose.yml config.
 
-## Install custom python package
+```
+environment:
+    - LOAD_EX=y
+    - GOOGLE_AUTH=true
+    - GOOGLE_CLIENT_ID=<YOUR CLIENT ID>
+    - GOOGLE_SECRET=<YOUR SECRET>
+    - GOOGLE_DOMAIN=<YOUR ROOT DOMAIN (example.com)>
+    - EXECUTOR=Local
+```
+
+For more information, see the [airflow docs](https://airflow.incubator.apache.org/security.html#google-authentication)
+.
+## Install custom python packages
 
 - Create a file "requirements.txt" with the desired python modules
 - Mount this file as a volume `-v $(pwd)/requirements.txt:/requirements.txt`
