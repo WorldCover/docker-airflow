@@ -25,11 +25,11 @@ fi
 if [ "$GOOGLE_AUTH" = "true" ]; then
     echo "Setting Up Google OAuth..."
     echo $GOOGLE_CLIENT_ID
-    sed -i '' "s/authenticate = False # serverauth/authenticate = True/" "$AIRFLOW_HOME"/airflow.cfg
-    sed -i '' "s/# auth_backend/auth_backend/" "$AIRFLOW_HOME"/airflow.cfg
-    sed -i '' 's/client_id =/client_id = '"$GOOGLE_CLIENT_ID"'/' "$AIRFLOW_HOME"/airflow.cfg
-    sed -i '' 's/client_secret =/client_secret = '"$GOOGLE_SECRET"'/' "$AIRFLOW_HOME"/airflow.cfg
-    sed -i '' 's/domain =/client_secret = '"$GOOGLE_DOMAIN"'/' "$AIRFLOW_HOME"/airflow.cfg
+    sed -i "s/authenticate = False # serverauth/authenticate = True/" "$AIRFLOW_HOME"/airflow.cfg
+    sed -i "s/# auth_backend/auth_backend/" "$AIRFLOW_HOME"/airflow.cfg
+    sed -i 's/client_id =/client_id = '"$GOOGLE_CLIENT_ID"'/' "$AIRFLOW_HOME"/airflow.cfg
+    sed -i 's/client_secret =/client_secret = '"$GOOGLE_SECRET"'/' "$AIRFLOW_HOME"/airflow.cfg
+    sed -i 's/domain =/domain = '"$GOOGLE_DOMAIN"'/' "$AIRFLOW_HOME"/airflow.cfg
 fi
 
 # Install custom python packages if requirements.txt is present
