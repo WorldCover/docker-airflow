@@ -4,7 +4,7 @@
 # BUILD: docker build --rm -t puckel/docker-airflow .
 # SOURCE: https://github.com/puckel/docker-airflow
 
-FROM python:3.6-slim
+FROM python:3.6-jessie
 MAINTAINER Puckel_
 
 # Never prompts the user for choices on installation/configuration of packages
@@ -49,8 +49,10 @@ RUN set -ex \
     && locale-gen \
     && update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 \
     && useradd -ms /bin/bash -d ${AIRFLOW_HOME} airflow \
+    && curl -sSL https://get.docker.com/ | sh \
     && python -m pip install -U pip setuptools wheel \
     && pip install Cython \
+    && pip install docker-py \
     && pip install pytz \
     && pip install pyOpenSSL \
     && pip install ndg-httpsclient \
@@ -69,6 +71,10 @@ RUN set -ex \
 
 COPY script/entrypoint.sh /entrypoint.sh
 COPY config/airflow.cfg ${AIRFLOW_HOME}/airflow.cfg
+
+
+RUN adduser airflow docker \
+    && usermod -aG docker airflow
 
 RUN chown -R airflow: ${AIRFLOW_HOME}
 
